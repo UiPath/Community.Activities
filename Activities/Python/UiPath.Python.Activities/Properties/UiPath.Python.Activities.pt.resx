@@ -157,7 +157,7 @@
     <value>O caminho Python especificado não é válido: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>O caminho de biblioteca Python especificado não é válido (só é necessário um caminho de ficheiro para python**.dll / libpython*.so para Python 3.10): {0}</value>
+    <value>O caminho de biblioteca Python especificado não é válido (é necessário um caminho de ficheiro para python**.dll / libpython*.so): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Erro ao invocar o método Python</value>
@@ -291,13 +291,13 @@
     <value>Tempo Limite</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>A quantidade de tempo para permitir que um script Python seja executado até que seja terminado e seja gerada uma exceção.</value>
+    <value>A quantidade de tempo em segundos para permitir que um script Python seja executado até que seja terminado e seja lançada uma exceção.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>No Linux, é o caminho para a biblioteca Python libpython*.so, incluindo o nome da biblioteca. No Windows (Versão &gt;3.9), é o caminho para python**.dll, incluindo o nome da biblioteca (normalmente, está no caminho inicial Python. No Windows (Versão &lt;=3.9), deixe vazio.</value>
+    <value>Obrigatório. Caminho completo para a biblioteca de runtime do Python, incluindo o nome de ficheiro – python**.dll no Windows (por exemplo, python313.dll, normalmente na pasta inicial do Python), libpython*.so no Linux ou libpython*.dylib no macOS.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Caminho para a biblioteca (Linux ou versão &gt;3.9)</value>
+    <value>Caminho de biblioteca</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>A versão do Python selecionada não é suportada.</value>
@@ -316,7 +316,7 @@
     <value>Selecione a instalação do Python a utilizar para a configuração da atividade</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Não foram detetadas instalações do Python</value>
+    <value>Não foram detetadas instalações suportadas do Python (64 bits, versão 3.11 ou posterior)</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Limite de Tamanho de Dados de Script (MB)</value>

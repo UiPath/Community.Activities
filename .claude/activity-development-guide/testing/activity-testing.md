@@ -10,10 +10,10 @@ Every activity test project requires these NuGet references in the `.csproj`:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-  <PackageReference Include="Moq" Version="4.20.72" />
+  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
+  <PackageReference Include="Moq" Version="4.21.0" />
   <PackageReference Include="xunit" Version="2.9.3" />
-  <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  <PackageReference Include="xunit.runner.visualstudio" Version="4.0.1" />
   <PackageReference Include="Shouldly" Version="4.2.1" />
   <PackageReference Include="UiPath.Activities.Api" Version="24.10.1"
                     DevelopmentDependency="true" />

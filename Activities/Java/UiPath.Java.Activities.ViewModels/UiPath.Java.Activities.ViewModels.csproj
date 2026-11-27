@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\Java.build.props" />
 
   <PropertyGroup>
     <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
@@ -20,6 +19,10 @@
    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
    <EmbeddedResource Include="Resources\Icons\*.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="UiPath.Java.Activities.API.Tests" />
   </ItemGroup>
 
   <ItemGroup>

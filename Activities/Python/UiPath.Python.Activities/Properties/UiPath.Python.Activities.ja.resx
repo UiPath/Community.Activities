@@ -157,7 +157,7 @@
     <value>指定した Python のパスは無効です: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>指定した Python のライブラリ パスは無効です (Python 3.10 の python**.dll / libpython*.so へのファイル パスが必要です): {0}</value>
+    <value>指定した Python のライブラリ パスは無効です (python**.dll / libpython*.so へのファイル パスが必要です): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python メソッドの呼びし中にエラーが発生しました。</value>
@@ -291,13 +291,13 @@
     <value>タイムアウト</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Python スクリプトを実行して終了するまでの時間です。設定した時間内に実行が終わらない場合は例外がスローされます。</value>
+    <value>Python スクリプトを実行して終了するまでの時間 (秒) です。設定した時間内に実行が終わらない場合は例外がスローされます。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Linux の場合は、Python ライブラリ libpython*.so (ライブラリ名を含む) のパスを入力します。Windows (3.9 より後のバージョン) の場合は、python**.dll (ライブラリ名を含む) のパスを入力します (通常 Python のホーム パスに含まれます)。Windows (3.9 以前のバージョン) の場合は、空のままにします。</value>
+    <value>必須です。ファイル名を含む、Python ランタイム ライブラリへのフル パスです。— Windows の場合は python**.dll (例:python313.dll、通常は Python のホーム フォルダー内)、Linux の場合は libpython*.so、macOS の場合は libpython*.dylib です。</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>ライブラリ パス (Linux または 3.9 より後のバージョン)</value>
+    <value>ライブラリ パス</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>選択した Python のバージョンはサポートされていません。</value>
@@ -316,7 +316,7 @@
     <value>アクティビティの設定に使用する Python のインストールを選択します。</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Python のインストールが検出されませんでした。</value>
+    <value>サポートされている Python のインストール (64 ビット 3.11 以降) が検出されませんでした。</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>スクリプトのデータ サイズ制限 (MB)</value>

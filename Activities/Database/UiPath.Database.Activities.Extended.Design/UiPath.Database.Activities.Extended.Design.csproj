@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+    <PropertyGroup>
+        <TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+        <OutputPath>..\..\Output\Activities\Database\</OutputPath>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+        <!-- The assembly name is what the connection dialog loads by name (ConnectionDialogProviders.WellKnownAssemblies). -->
+        <AssemblyName>UiPath.Database.Activities.Extended.Design</AssemblyName>
+        <RootNamespace>UiPath.Database.Extended.Design</RootNamespace>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+        <PackageReference Include="System.Activities" />
+        <PackageReference Include="System.Activities.Core.Presentation" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
+        <ProjectReference Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj" />
+    </ItemGroup>
+</Project>

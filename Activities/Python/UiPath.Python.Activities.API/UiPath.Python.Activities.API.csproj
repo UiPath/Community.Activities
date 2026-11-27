@@ -13,13 +13,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="UiPath.Activities.Api"/>
-    <PackageReference Include="UiPath.Activities.Contracts">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="UiPath.CodedWorkflows"/>
-    <PackageReference Include="UiPath.Platform"/>
   </ItemGroup>
 
   <ItemGroup>

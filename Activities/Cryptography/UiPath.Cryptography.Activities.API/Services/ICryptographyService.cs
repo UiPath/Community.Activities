@@ -1,5 +1,3 @@
-using System.IO;
-using System.Net;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Enums;
@@ -10,163 +8,287 @@ namespace UiPath.Cryptography.Activities.API
     /// Provides cryptography capabilities for coded workflows.
     /// </summary>
     /// <remarks>
-    /// <para><b>IV / salt / nonce strategy (symmetric methods)</b></para>
+    /// <para><b>API shape — Bytes / Text / File matrix</b></para>
     /// <para>
-    /// All symmetric encrypt methods (<see cref="EncryptText"/>, <see cref="EncryptFile"/>) are
-    /// <b>non-deterministic</b>: a fresh random salt (8 bytes, PBKDF2) and IV/nonce are generated
-    /// on every call and prepended to the ciphertext.  Encrypting the same plaintext twice always
-    /// produces different ciphertext.  The paired decrypt methods reconstruct the salt and IV from
-    /// the same prefix, so the output of Encrypt can always be fed directly to Decrypt without
-    /// supplying the IV separately.
+    /// Every logical operation (symmetric encrypt/decrypt, keyed hash, PGP encrypt/decrypt/sign/clearsign/verify)
+    /// exposes three input/output forms so callers can use the one that matches the data they already have:
     /// </para>
+    /// <list type="bullet">
+    /// <item><description><b>Bytes form</b> — base method name. Bytes in, bytes out.</description></item>
+    /// <item><description><b>Text form</b> — <c>...Text</c> suffix. String in, string out (Base64 for symmetric, ASCII-armored for PGP).</description></item>
+    /// <item><description><b>File form</b> — <c>...File</c> suffix. File-path in, file-path out.</description></item>
+    /// </list>
+    /// <para><b>Symmetric wire format</b></para>
     /// <para>
-    /// CBC-family algorithms (AES/Rijndael/DES/3DES/RC2) use PKCS7 padding, CBC mode, and a
-    /// randomly-generated IV.  AES-GCM (<see cref="EncryptionAlgorithm.AESGCM"/>) uses a
-    /// randomly-generated 96-bit nonce and a 128-bit authentication tag, providing authenticated
-    /// encryption with associated data (AEAD) — it is the recommended choice for new workflows.
+    /// All symmetric methods default to <see cref="SymmetricWireFormat.Classic"/> — the byte-stable
+    /// UiPath layout (<c>salt(8) || IV || ct [|| tag(16)]</c>, PBKDF2-HMAC-SHA1 @ 10 000 iterations).
+    /// Pass <see cref="SymmetricEncryptOptions"/> / <see cref="SymmetricDecryptOptions"/> to opt into
+    /// <see cref="SymmetricWireFormat.Owasp2026"/> (modern KDF iterations),
+    /// <see cref="SymmetricWireFormat.Raw"/> (caller-supplied key + IV, third-party interop), or
+    /// <see cref="SymmetricWireFormat.OpenSslEnc"/> (<c>openssl enc</c>-compatible). See
+    /// <c>docs/symmetric-wire-format.md</c> for the byte layouts.
     /// </para>
     /// <para><b>Key material</b></para>
     /// <para>
-    /// Every method that accepts a <c>string key</c> has a paired overload that accepts
-    /// <c>byte[] keyBytes</c> (raw key material) or <c>SecureString key</c>.
-    /// Prefer the <c>byte[]</c> overload when key material is already loaded into memory as bytes.
-    /// The <c>SecureString</c> overload is supported for symmetric operations (encrypt, decrypt,
-    /// keyed hash): the key is extracted via unmanaged memory, encoded to bytes, used for the
-    /// cryptographic operation, and then zeroed — no managed <see langword="string"/> is created.
-    /// The plain-string overload remains for compatibility; note that <see langword="string"/>
-    /// values are immutable and may be interned, meaning the secret can linger on the heap until GC.
+    /// Symmetric methods take a <see cref="SymmetricEncryptOptions"/> / <see cref="SymmetricDecryptOptions"/>
+    /// object that carries the key together with the wire format. The format factories accept
+    /// either a <see cref="PasswordKey"/> (for the PBKDF2-based formats Classic, Owasp2026,
+    /// OpenSslEnc) or a <see cref="RawKey"/> (for <see cref="SymmetricWireFormat.Raw"/>), so
+    /// mismatched (key kind × format) pairings fail at compile time. Construct keys via
+    /// <see cref="PasswordKey.FromPassword(string, System.Text.Encoding)"/> /
+    /// <see cref="PasswordKey.FromPassword(SecureString, System.Text.Encoding)"/> /
+    /// <see cref="RawKey.FromBytes"/> / <see cref="RawKey.FromHex"/> /
+    /// <see cref="RawKey.FromBase64"/>.
     /// </para>
-    /// <para><b>PGP passphrase limitation</b></para>
     /// <para>
-    /// PGP overloads that accept <c>SecureString passphrase</c> must materialise the passphrase
-    /// to a managed <see langword="string"/> because the underlying BouncyCastle library requires
-    /// a plain string and offers no byte[]-based passphrase API.  The managed string cannot be
-    /// zeroed afterward.  For maximum security with PGP, prefer passing a key ring that does not
-    /// require a passphrase, or accept that the passphrase will briefly exist as a managed string.
+    /// Keyed-hash methods take a <see cref="CryptoKey"/> directly — they have no wire-format
+    /// axis so no options object is required.
+    /// </para>
+    /// <para><b>PGP keys</b></para>
+    /// <para>
+    /// PGP methods take <see cref="PgpPublicKey"/> / <see cref="PgpPrivateKey"/> handles. Construct
+    /// them from in-memory bytes or a file path via the factory methods. The private key carries
+    /// its own passphrase, bound at construction. Passing a <see cref="PgpPrivateKey"/> to an encrypt
+    /// method implies signing; passing a <see cref="PgpPublicKey"/> to a decrypt method implies
+    /// signature verification — separate <c>bool sign</c> / <c>bool verifySignature</c> flags are
+    /// not used.
     /// </para>
     /// </remarks>
     public interface ICryptographyService
     {
-        // ── Symmetric: string key ────────────────────────────────────────────
+        // ── Symmetric ─────────────────────────────────────────────────────────
 
-        /// <summary>Encrypts a string using the specified algorithm and key.</summary>
-        /// <inheritdoc cref="ICryptographyService" path="/remarks"/>
-        string EncryptText(string input, EncryptionAlgorithm algorithm, string key, Encoding encoding);
+        /// <summary>
+        /// Encrypts arbitrary bytes using the algorithm and wire format selected on
+        /// <paramref name="options"/>. Returns the ciphertext — exact byte layout depends on
+        /// the format (see <see cref="SymmetricWireFormat"/>).
+        /// </summary>
+        byte[] EncryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options);
 
-        /// <summary>Encrypts a string using the specified algorithm and a <see cref="SecureString"/> key.</summary>
-        /// <inheritdoc cref="ICryptographyService" path="/remarks"/>
-        string EncryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding);
+        /// <summary>
+        /// Decrypts ciphertext produced by <see cref="EncryptBytes"/>. The wire format on
+        /// <paramref name="options"/> must match the format used at encrypt time; mismatches
+        /// surface as <see cref="System.Security.Cryptography.CryptographicException"/>
+        /// (AEAD tag failure) or garbled output (CBC).
+        /// </summary>
+        byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options);
 
-        /// <summary>Encrypts a string using the specified algorithm and raw key bytes.</summary>
-        /// <inheritdoc cref="ICryptographyService" path="/remarks"/>
-        string EncryptText(string input, EncryptionAlgorithm algorithm, byte[] keyBytes, Encoding encoding);
+        /// <summary>
+        /// Encrypts a string and returns the ciphertext as Base64. The input string is transcoded
+        /// to bytes via <c>options.TextEncoding</c> (set through the format factory's optional
+        /// <c>encoding:</c> parameter; defaults to <see cref="System.Text.Encoding.UTF8"/>). For
+        /// byte-exact control you can still transcode at the call site and use
+        /// <see cref="EncryptBytes"/> instead.
+        /// </summary>
+        string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options);
 
-        /// <summary>Decrypts a string using the specified algorithm and key.</summary>
-        string DecryptText(string input, EncryptionAlgorithm algorithm, string key, Encoding encoding);
+        /// <summary>
+        /// Decrypts a Base64-encoded ciphertext and returns the plaintext as a string. The
+        /// plaintext bytes are decoded via <c>options.TextEncoding</c> (set through the format
+        /// factory's optional <c>encoding:</c> parameter; defaults to
+        /// <see cref="System.Text.Encoding.UTF8"/>) and must match the encoding used at encrypt
+        /// time. For byte-exact control you can still use <see cref="DecryptBytes"/> and decode
+        /// at the call site.
+        /// </summary>
+        string DecryptText(string input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options);
 
-        /// <summary>Decrypts a string using the specified algorithm and a <see cref="SecureString"/> key.</summary>
-        string DecryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding);
+        /// <summary>
+        /// Reads <paramref name="inputPath"/>, encrypts the contents, and writes the
+        /// ciphertext to <paramref name="outputPath"/>. Throws <see cref="System.InvalidOperationException"/>
+        /// if the output file exists and <paramref name="overwrite"/> is false.
+        /// </summary>
+        void EncryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options, bool overwrite = false);
 
-        /// <summary>Decrypts a string using the specified algorithm and raw key bytes.</summary>
-        string DecryptText(string input, EncryptionAlgorithm algorithm, byte[] keyBytes, Encoding encoding);
+        /// <summary>
+        /// Reads an encrypted file from <paramref name="inputPath"/>, decrypts the contents,
+        /// and writes the plaintext to <paramref name="outputPath"/>. Throws
+        /// <see cref="System.InvalidOperationException"/> if the output file exists and
+        /// <paramref name="overwrite"/> is false.
+        /// </summary>
+        void DecryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options, bool overwrite = false);
 
-        // ── Symmetric file: string key ───────────────────────────────────────
+        // ── Keyed hash ────────────────────────────────────────────────────────
 
-        /// <summary>Encrypts a file and writes the result to the output path.</summary>
-        void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite);
+        /// <summary>
+        /// Computes a keyed hash (HMAC for the HMAC* algorithms; plain hash with the key
+        /// ignored for the SHA*/MD5 algorithms) over <paramref name="input"/> and returns
+        /// the digest as an uppercase hex string.
+        /// </summary>
+        string KeyedHashBytes(byte[] input, KeyedHashAlgorithms algorithm, CryptoKey key);
 
-        /// <summary>Decrypts a file and writes the result to the output path.</summary>
-        void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite);
+        /// <summary>
+        /// Computes a keyed hash over the bytes of <paramref name="input"/> in the specified
+        /// <paramref name="encoding"/> (default <see cref="Encoding.UTF8"/>) and returns the
+        /// digest as an uppercase hex string. Pass a non-UTF-8 encoding to match digests
+        /// produced by the prior API when the caller passed a non-UTF-8 encoding.
+        /// </summary>
+        string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key, Encoding encoding = null);
 
-        // ── Symmetric file: SecureString key ─────────────────────────────────
+        /// <summary>
+        /// Reads the file at <paramref name="inputPath"/> and computes a keyed hash over its
+        /// bytes, returning the digest as an uppercase hex string.
+        /// </summary>
+        string KeyedHashFile(string inputPath, KeyedHashAlgorithms algorithm, CryptoKey key);
 
-        /// <summary>Encrypts a file and writes the result to the output path using a <see cref="SecureString"/> key.</summary>
-        void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite);
+        // ── PGP encrypt (signer is optional — when supplied, output is encrypted-and-signed) ─
 
-        /// <summary>Decrypts a file and writes the result to the output path using a <see cref="SecureString"/> key.</summary>
-        void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite);
+        /// <summary>
+        /// PGP-encrypts <paramref name="input"/> for the holder of <paramref name="recipient"/>.
+        /// When <paramref name="signer"/> is supplied, the output is also signed with that
+        /// private key — the recipient can verify by passing the matching public key as the
+        /// <c>verifier</c> on <see cref="PgpDecryptBytes"/>.
+        /// </summary>
+        byte[] PgpEncryptBytes(byte[] input, PgpPublicKey recipient, PgpPrivateKey signer = null);
 
-        // ── Symmetric file: byte[] key (raw material — no PBKDF2 string conversion) ──
+        /// <summary>
+        /// PGP-encrypts <paramref name="input"/> and returns ASCII-armored ciphertext
+        /// (the <c>-----BEGIN PGP MESSAGE-----</c> / <c>-----END PGP MESSAGE-----</c> envelope).
+        /// When <paramref name="signer"/> is supplied, the output is also signed.
+        /// </summary>
+        string PgpEncryptText(string input, PgpPublicKey recipient, PgpPrivateKey signer = null);
 
-        /// <summary>Encrypts a file and writes the result to the output path using raw key bytes.</summary>
-        void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, byte[] keyBytes, bool overwrite);
+        /// <summary>
+        /// Reads <paramref name="inputPath"/>, PGP-encrypts the contents for
+        /// <paramref name="recipient"/>, and writes the result to <paramref name="outputPath"/>.
+        /// When <paramref name="signer"/> is supplied, the output is also signed.
+        /// </summary>
+        void PgpEncryptFile(string inputPath, string outputPath, PgpPublicKey recipient, PgpPrivateKey signer = null, bool overwrite = false);
 
-        /// <summary>Decrypts a file and writes the result to the output path using raw key bytes.</summary>
-        void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, byte[] keyBytes, bool overwrite);
+        // ── PGP decrypt (verifier is optional — when supplied, signature is checked too) ─────
 
-        // ── Keyed hash: string key ───────────────────────────────────────────
+        /// <summary>
+        /// Decrypts a PGP-encrypted payload using <paramref name="recipient"/>'s private key
+        /// (the passphrase is bound to the key at construction). When <paramref name="verifier"/>
+        /// is supplied, the embedded signature is verified against that public key;
+        /// verification failure throws <see cref="System.InvalidOperationException"/>.
+        /// </summary>
+        byte[] PgpDecryptBytes(byte[] input, PgpPrivateKey recipient, PgpPublicKey verifier = null);
 
-        /// <summary>Computes a keyed hash of a string and returns the hex-encoded result.</summary>
-        string KeyedHashText(string input, KeyedHashAlgorithms algorithm, string key, Encoding encoding);
+        /// <summary>
+        /// Decrypts an ASCII-armored PGP message using <paramref name="recipient"/>'s private
+        /// key. When <paramref name="verifier"/> is supplied, the embedded signature is verified.
+        /// </summary>
+        string PgpDecryptText(string input, PgpPrivateKey recipient, PgpPublicKey verifier = null);
 
-        /// <summary>Computes a keyed hash of a file and returns the hex-encoded result.</summary>
-        string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, string key, Encoding encoding);
+        /// <summary>
+        /// Reads a PGP-encrypted file at <paramref name="inputPath"/>, decrypts it using
+        /// <paramref name="recipient"/>, and writes the plaintext to <paramref name="outputPath"/>.
+        /// When <paramref name="verifier"/> is supplied, the embedded signature is verified.
+        /// </summary>
+        void PgpDecryptFile(string inputPath, string outputPath, PgpPrivateKey recipient, PgpPublicKey verifier = null, bool overwrite = false);
 
-        // ── Keyed hash: SecureString key ─────────────────────────────────────
+        // ── PGP sign (binary) ─────────────────────────────────────────────────
 
-        /// <summary>Computes a keyed hash of a string using a <see cref="SecureString"/> key and returns the hex-encoded result.</summary>
-        string KeyedHashText(string input, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding);
+        /// <summary>
+        /// Produces a PGP binary signature over <paramref name="input"/> using
+        /// <paramref name="signer"/>. The returned payload combines the signature with the
+        /// signed content; verify with <see cref="PgpVerifyBytes"/>.
+        /// </summary>
+        byte[] PgpSignBytes(byte[] input, PgpPrivateKey signer);
 
-        /// <summary>Computes a keyed hash of a file using a <see cref="SecureString"/> key and returns the hex-encoded result.</summary>
-        string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding);
+        /// <summary>
+        /// Produces a PGP binary signature over the UTF-8 bytes of <paramref name="input"/>,
+        /// returned as ASCII-armored text. Verify with <see cref="PgpVerifyText"/>.
+        /// </summary>
+        string PgpSignText(string input, PgpPrivateKey signer);
 
-        // ── Keyed hash: byte[] key ────────────────────────────────────────────
+        /// <summary>
+        /// Reads <paramref name="inputPath"/>, produces a PGP binary signature, and writes
+        /// the signed payload to <paramref name="outputPath"/>. Verify with
+        /// <see cref="PgpVerifyFile"/>.
+        /// </summary>
+        void PgpSignFile(string inputPath, string outputPath, PgpPrivateKey signer, bool overwrite = false);
 
-        /// <summary>Computes a keyed hash of a string using raw key bytes and returns the hex-encoded result.</summary>
-        string KeyedHashText(string input, KeyedHashAlgorithms algorithm, byte[] keyBytes, Encoding encoding);
+        // ── PGP clear-sign (text) ─────────────────────────────────────────────
 
-        /// <summary>Computes a keyed hash of a file using raw key bytes and returns the hex-encoded result.</summary>
-        string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, byte[] keyBytes);
+        /// <summary>
+        /// Produces a PGP clear-text signature over <paramref name="input"/>. The original
+        /// content remains human-readable, wrapped between
+        /// <c>-----BEGIN PGP SIGNED MESSAGE-----</c> and <c>-----END PGP SIGNATURE-----</c>;
+        /// verify with <see cref="PgpVerifyClearSignedBytes"/>.
+        /// </summary>
+        byte[] PgpClearSignBytes(byte[] input, PgpPrivateKey signer);
 
-        // ── PGP: string passphrase ────────────────────────────────────────────
+        /// <summary>
+        /// Produces a PGP clear-text signature over <paramref name="input"/> and returns the
+        /// ASCII-armored clear-signed envelope. Verify with <see cref="PgpVerifyClearSignedText"/>.
+        /// </summary>
+        string PgpClearSignText(string input, PgpPrivateKey signer);
 
-        /// <summary>Encrypts bytes using PGP with the provided public key stream.</summary>
-        byte[] PgpEncrypt(byte[] inputBytes, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false);
+        /// <summary>
+        /// Reads <paramref name="inputPath"/> (treated as text), produces a PGP clear-text
+        /// signature, and writes the signed envelope to <paramref name="outputPath"/>. Verify
+        /// with <see cref="PgpVerifyClearSignedFile"/>.
+        /// </summary>
+        void PgpClearSignFile(string inputPath, string outputPath, PgpPrivateKey signer, bool overwrite = false);
 
-        /// <summary>Decrypts PGP-encrypted bytes using the provided private key stream.</summary>
-        byte[] PgpDecrypt(byte[] inputBytes, Stream privateKeyStream, string passphrase, Stream publicKeyStream = null, bool verifySignature = false);
+        // ── PGP verify (binary signature) ─────────────────────────────────────
 
-        /// <summary>Encrypts a string using PGP with the provided public key stream.</summary>
-        string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false);
+        /// <summary>
+        /// Verifies a PGP binary signature against <paramref name="verifier"/>. Returns
+        /// <c>true</c> when the signature is valid and the public key matches the signer;
+        /// returns <c>false</c> on signature mismatch or tampered content.
+        /// </summary>
+        bool PgpVerifyBytes(byte[] input, PgpPublicKey verifier);
 
-        /// <summary>Decrypts a PGP-encrypted string using the provided private key stream.</summary>
-        string PgpDecryptText(string input, Stream privateKeyStream, string passphrase, Stream publicKeyStream = null, bool verifySignature = false);
+        /// <summary>
+        /// Verifies an ASCII-armored PGP binary signature against <paramref name="verifier"/>.
+        /// Returns <c>true</c> when valid; <c>false</c> on mismatch.
+        /// </summary>
+        bool PgpVerifyText(string input, PgpPublicKey verifier);
 
-        /// <summary>Signs bytes using PGP with the provided private key stream.</summary>
-        byte[] PgpSignFile(byte[] inputBytes, Stream privateKeyStream, string passphrase);
+        /// <summary>
+        /// Reads a PGP-signed file at <paramref name="inputPath"/> and verifies the binary
+        /// signature against <paramref name="verifier"/>. Returns <c>true</c> when valid.
+        /// </summary>
+        bool PgpVerifyFile(string inputPath, PgpPublicKey verifier);
 
-        /// <summary>Creates a PGP clear-text signature for the given bytes.</summary>
-        byte[] PgpClearSignFile(byte[] inputBytes, Stream privateKeyStream, string passphrase);
+        // ── PGP verify (clearsignature) ───────────────────────────────────────
 
-        // ── PGP: SecureString passphrase ──────────────────────────────────────
+        /// <summary>
+        /// Verifies a PGP clear-text signature against <paramref name="verifier"/>. Returns
+        /// <c>true</c> when the embedded signature is valid; <c>false</c> on mismatch or
+        /// tampered content inside the clear-signed envelope.
+        /// </summary>
+        bool PgpVerifyClearSignedBytes(byte[] input, PgpPublicKey verifier);
 
-        /// <summary>Encrypts bytes using PGP with the provided public key stream and a <see cref="SecureString"/> passphrase.</summary>
-        byte[] PgpEncrypt(byte[] inputBytes, Stream publicKeyStream, Stream privateKeyStream, SecureString passphrase, bool sign = false);
+        /// <summary>
+        /// Verifies a PGP clear-text signature carried in <paramref name="input"/> (ASCII
+        /// armored) against <paramref name="verifier"/>. Returns <c>true</c> when valid.
+        /// </summary>
+        bool PgpVerifyClearSignedText(string input, PgpPublicKey verifier);
 
-        /// <summary>Decrypts PGP-encrypted bytes using the provided private key stream and a <see cref="SecureString"/> passphrase.</summary>
-        byte[] PgpDecrypt(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase, Stream publicKeyStream = null, bool verifySignature = false);
+        /// <summary>
+        /// Reads a clear-signed file at <paramref name="inputPath"/> and verifies the
+        /// embedded signature against <paramref name="verifier"/>. Returns <c>true</c> when
+        /// valid.
+        /// </summary>
+        bool PgpVerifyClearSignedFile(string inputPath, PgpPublicKey verifier);
 
-        /// <summary>Encrypts a string using PGP with the provided public key stream and a <see cref="SecureString"/> passphrase.</summary>
-        string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream, SecureString passphrase, bool sign = false);
+        // ── PGP key generation ────────────────────────────────────────────────
 
-        /// <summary>Decrypts a PGP-encrypted string using the provided private key stream and a <see cref="SecureString"/> passphrase.</summary>
-        string PgpDecryptText(string input, Stream privateKeyStream, SecureString passphrase, Stream publicKeyStream = null, bool verifySignature = false);
+        /// <summary>
+        /// Generates an OpenPGP RSA key pair in memory. The public and private halves
+        /// returned in the <see cref="PgpKeyPair"/> are mathematically tied — call
+        /// <see cref="PgpPublicKey.Save"/> / <see cref="PgpPrivateKey.Save"/> to persist.
+        /// </summary>
+        /// <param name="userId">OpenPGP User ID, conventionally an RFC 2822 mailbox such as <c>"Alice Doe &lt;alice@example.com&gt;"</c>.</param>
+        /// <param name="passphrase">Passphrase that will protect the generated private key. Bound to the returned <see cref="PgpPrivateKey"/>.</param>
+        /// <param name="keySize">RSA modulus size; defaults to 4096 bits.</param>
+        PgpKeyPair PgpGenerateKeys(string userId, string passphrase, RsaKeySize keySize = RsaKeySize.Rsa4096);
 
-        /// <summary>Signs bytes using PGP with the provided private key stream and a <see cref="SecureString"/> passphrase.</summary>
-        byte[] PgpSignFile(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase);
+        /// <summary>
+        /// Generates an OpenPGP RSA key pair in memory with a <see cref="SecureString"/>
+        /// passphrase. Same semantics as the <c>string</c> overload; see that method's docs
+        /// for the key-pair atomicity contract.
+        /// </summary>
+        PgpKeyPair PgpGenerateKeys(string userId, SecureString passphrase, RsaKeySize keySize = RsaKeySize.Rsa4096);
 
-        /// <summary>Creates a PGP clear-text signature using a <see cref="SecureString"/> passphrase.</summary>
-        byte[] PgpClearSignFile(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase);
-
-        // ── PGP: verify / key-gen ─────────────────────────────────────────────
-
-        /// <summary>Verifies a PGP signature against the provided public key stream.</summary>
-        bool PgpVerify(byte[] inputBytes, Stream publicKeyStream);
-
-        /// <summary>Verifies a PGP clear-text signature against the provided public key stream.</summary>
-        bool PgpVerifyClear(byte[] inputBytes, Stream publicKeyStream);
-
-        /// <summary>Generates a PGP key pair and writes the keys to the specified paths.</summary>
-        void PgpGenerateKeyPair(string publicKeyPath, string privateKeyPath, string username, string password);
+        /// <summary>
+        /// Verifies that the supplied <see cref="PgpPublicKey"/> is a well-formed OpenPGP public key.
+        /// Returns <c>true</c> when parsing succeeds; <c>false</c> when the bytes are
+        /// malformed or not an OpenPGP key.
+        /// </summary>
+        bool PgpVerifyPublicKey(PgpPublicKey key);
     }
 }

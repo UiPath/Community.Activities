@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
- <Import Project="..\Cryptography.build.props" />
  <PropertyGroup>
  <PackageId>.noconflict</PackageId>
  <TargetFrameworks>$(PortableFramework)</TargetFrameworks>

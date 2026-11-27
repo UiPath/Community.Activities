@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\Java.build.props" />
 	<PropertyGroup>
 		<TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
 		<OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
@@ -13,7 +12,7 @@
 		<PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
 		<PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-java-activities-pack</PackageLicenseUrl>
 		<PackageTags>UiPathActivities</PackageTags>
-		<Description>UiPath Java Activities Pack</Description>
+		<Description>IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows. UiPath Java Activities Pack</Description>
 		<Authors>UiPath</Authors>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -94,6 +93,6 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
-		<Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Java.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Java.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
+		<Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Java.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Java.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" IgnoreStandardErrorWarningFormat="true" />
 	</Target>
 </Project>

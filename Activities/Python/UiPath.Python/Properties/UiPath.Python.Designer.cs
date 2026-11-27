@@ -194,5 +194,32 @@ namespace UiPath.Python.Properties {
                 return ResourceManager.GetString("UnsupportedVersionException", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Python installation at '{0}' is 32-bit. Only 64-bit Python installations are supported.
+        /// </summary>
+        public static string Python32BitNotSupportedException {
+            get {
+                return ResourceManager.GetString("Python32BitNotSupportedException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Python {0} is not supported. Supported versions are: {1}.
+        /// </summary>
+        public static string PythonVersionNotSupportedException {
+            get {
+                return ResourceManager.GetString("PythonVersionNotSupportedException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The virtual environment at &apos;{0}&apos; was created with Python {1}, but LibraryPath points to Python {2}. Point LibraryPath to a Python {1} installation that matches the virtual environment.
+        /// </summary>
+        public static string PythonVenvVersionMismatchException {
+            get {
+                return ResourceManager.GetString("PythonVenvVersionMismatchException", resourceCulture);
+            }
+        }
     }
 }

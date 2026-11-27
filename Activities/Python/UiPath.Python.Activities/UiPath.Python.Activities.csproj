@@ -1,9 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
     <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Python\</OutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <!--<PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
@@ -15,7 +14,6 @@
   <Import Project="..\..\Shared\UiPath.Shared.Contracts.Private\UiPath.Shared.Contracts.Private.projitems" Label="Shared" />
   
 	<ItemGroup>
-		<PackageReference Include="System.Activities.ViewModels" />
 		<PackageReference Include="UiPath.Telemetry.Client"/>
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />

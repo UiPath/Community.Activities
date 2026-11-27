@@ -1,18 +1,19 @@
 ﻿using Microsoft.Data.SqlClient;
-using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
+using System.Data.OleDb;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using UiPath.Database.BulkOps;
+using UiPath.Database.Extensibility;
 using UiPath.Database.Properties;
 using UiPath.Robot.Activities.Api;
 
@@ -24,8 +25,10 @@ namespace UiPath.Database
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
+        private IDatabaseProvider _provider;
+        private bool _providerResolved;
 
-        private bool _isWindows = true;
+        private readonly bool _isWindows;
 
         public ConnectionState? State => _connection?.State;
 
@@ -38,6 +41,8 @@ namespace UiPath.Database
         public DatabaseConnection Initialize(DbConnection connection)
         {
             _connection = connection;
+            _provider = null;
+            _providerResolved = false;
             OpenConnection();
             return this;
         }
@@ -45,17 +50,20 @@ namespace UiPath.Database
         public DatabaseConnection Initialize(string connectionString, string providerName)
         {
             _providerName = providerName;
+            _provider = null;
+            _providerResolved = false;
 
             DatabaseHelper.RegisterFactories(_isWindows);
 
             if (providerName.Equals(DatabaseConstants.SqlServerProvider, StringComparison.OrdinalIgnoreCase))
                 _connection = new SqlConnection();
-            else if (providerName.Equals(DatabaseConstants.OracleProvider, StringComparison.OrdinalIgnoreCase))
-                _connection = new OracleConnection();
             else if (providerName.Equals(DatabaseConstants.SQLiteProvider, StringComparison.OrdinalIgnoreCase))
                 _connection = new SqliteConnection();
-            else
+            else if (providerName.Equals(DatabaseConstants.OdbcProvider, StringComparison.OrdinalIgnoreCase)
+                || providerName.Equals(DatabaseConstants.OleDbProvider, StringComparison.OrdinalIgnoreCase))
                 _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
+            else
+                _connection = CreateConnectionOfOtherProvider(providerName);
 
             _connection.ConnectionString = connectionString;
             OpenConnection();
@@ -82,24 +90,37 @@ namespace UiPath.Database
             DataTable resultTable;
             using (var reader = _command.ExecuteReader())
             {
-                // First result set: DataTable.Load preserves exact backward-compatible behaviour
-                // (schema inference, PrimaryKey, constraints, LoadOption merging).
-                // Load internally calls reader.NextResult() after consuming the rows, and calls
-                // reader.Close() when NextResult() returns false, so IsClosed is reliable here.
-                var firstTable = new DataTable();
-                firstTable.Load(reader);
-                resultDataSet.Tables.Add(firstTable);
+                bool hasMoreResults;
+                if (reader is SqliteDataReader sqliteReader)
+                {
+                    // SQLite (STUD-82629): DataTable.Load calls GetSchemaTable, and Microsoft.Data.Sqlite answers it by
+                    // running "SELECT typeof(col) FROM table ... GROUP BY typeof(col)" for every selected table column,
+                    // which reads the WHOLE source table once per column, whatever the WHERE clause or indexes.
+                    // ReadSqliteResultSet builds the DataTable without GetSchemaTable. SQLite advances to the next
+                    // result set here, because only DataTable.Load does that (and closes the reader) by itself.
+                    resultDataSet.Tables.Add(ReadSqliteResultSet(sqliteReader));
+                    hasMoreResults = reader.NextResult();
+                }
+                else
+                {
+                    // Other providers: DataTable.Load preserves exact backward-compatible behaviour
+                    // (schema inference, PrimaryKey, constraints, LoadOption merging).
+                    // Load internally calls reader.NextResult() after consuming the rows, and calls
+                    // reader.Close() when NextResult() returns false, so IsClosed is reliable here.
+                    var firstTable = new DataTable();
+                    firstTable.Load(reader);
+                    resultDataSet.Tables.Add(firstTable);
+                    hasMoreResults = !reader.IsClosed;
+                }
 
-                // Subsequent result sets: manual loop because Load already advanced the reader.
+                // Subsequent result sets: manual loop because the first result set already advanced the reader.
                 // reader.NextResult() is the authoritative termination signal.
                 int resultSetCount = 1;
-                while (!reader.IsClosed && resultSetCount < MaxResultSets)
+                while (hasMoreResults && resultSetCount < MaxResultSets)
                 {
                     resultDataSet.Tables.Add(ReadResultSet(reader));
                     resultSetCount++;
-
-                    if (!reader.NextResult())
-                        break;
+                    hasMoreResults = reader.NextResult();
                 }
 
                 resultTable = resultDataSet.Tables[0];
@@ -161,6 +182,7 @@ namespace UiPath.Database
             throw new AggregateException(firstException, secondException);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int InsertDataTableInternal(string tableName, DataTable dataTable, bool removeBrackets, TimeSpan? commandTimeout = null)
         {
             var factory = GetCurrentFactory();
@@ -198,6 +220,7 @@ namespace UiPath.Database
         // Builds a parameterised INSERT statement and executes it row by row.
         // When no external transaction is active, wraps all inserts in a local transaction to avoid
         // per-row auto-commits (critical for performance on file-based databases such as SQLite).
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int InsertDataTableFallback(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null)
         {
             // Always escape identifiers; reserved words and names with spaces require quoting.
@@ -264,10 +287,58 @@ namespace UiPath.Database
 
         public virtual bool SupportsBulk()
         {
-            if (_connection is OracleConnection || _connection is SqlConnection)
+            if (_connection is SqlConnection)
                 return true;
-            return false;
+            return GetProvider()?.SupportsBulk == true;
         }
+
+        /// <summary>
+        /// Creates a connection for a provider that is not built in: first an installed extra provider (for example the
+        /// Oracle provider of the extended package), then the providers registered on the machine.
+        /// </summary>
+        private DbConnection CreateConnectionOfOtherProvider(string providerName)
+        {
+            _provider = DatabaseProviders.Find(providerName, out Exception loadError);
+            _providerResolved = true;
+            if (_provider != null)
+            {
+                _provider.Initialize();
+                DbProviderFactories.RegisterFactory(_provider.ProviderName, _provider.Factory);
+                return _provider.Factory.CreateConnection();
+            }
+
+            DbProviderFactory factory;
+            try
+            {
+                factory = DbProviderFactories.GetFactory(providerName);
+            }
+            catch (ArgumentException) when (providerName.Equals(DatabaseConstants.OracleProvider, StringComparison.OrdinalIgnoreCase))
+            {
+                // The Oracle provider moved to the extended package. If the package is installed but could not be loaded,
+                // say so instead of claiming it is not installed.
+                if (loadError != null)
+                    throw new InvalidOperationException(string.Format(Resources.DatabaseProviderFailedToLoad, providerName, loadError.Message), loadError);
+
+                throw new InvalidOperationException(string.Format(Resources.DatabaseProviderNotInstalled, providerName));
+            }
+
+            // Other registered providers are used as before; their own failures propagate unchanged.
+            return factory.CreateConnection();
+        }
+
+        /// <summary>The extra provider of the current connection, or null for the built-in providers.</summary>
+        private IDatabaseProvider GetProvider()
+        {
+            if (_providerResolved)
+                return _provider;
+
+            _provider = _connection == null || IsBuiltInConnection(_connection) ? null : DatabaseProviders.FindFor(_connection);
+            _providerResolved = true;
+            return _provider;
+        }
+
+        private static bool IsBuiltInConnection(DbConnection connection) =>
+            connection is SqlConnection || connection is SqliteConnection || connection is OdbcConnection || connection is OleDbConnection;
 
         public long BulkInsertDataTable(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)
         {
@@ -297,6 +368,7 @@ namespace UiPath.Database
             return countEnd - countStart;
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private long CountRowsInTable(string tableName, TimeSpan? commandTimeout = null)
         {
             var commandRowCount = _connection.CreateCommand();
@@ -376,6 +448,199 @@ namespace UiPath.Database
             return table;
         }
 
+        // Reads the current SQLite result set into a new DataTable without calling GetSchemaTable (STUD-82629).
+        // Does NOT call NextResult — the caller owns result-set advancement.
+        //
+        // Why not DataTable.Load: Load calls reader.GetSchemaTable(), and Microsoft.Data.Sqlite (8.0 to 10.0) picks
+        // each table column's type there with "SELECT typeof(col) FROM table WHERE typeof(col) != 'null'
+        // GROUP BY typeof(col) ORDER BY count() DESC LIMIT 1", one full pass over the source table per column.
+        // On a 2.5 GB file that is ~18 s per column even when the query returns a single row by index.
+        //
+        // Why not ReadResultSet: it types each column from the first row only. SQLite stores a type per value, so a
+        // column can hold mixed types (e.g. a DATE column with 20260101 and '2026-01-02'). Typing it Int64 from the
+        // first row makes Rows.Add throw "Couldn't store <2026-01-02> in D Column" on data DataTable.Load accepted.
+        //
+        // What this does instead, keeping the rule the driver uses but scoped to the rows actually returned:
+        //  - buffers the rows, then gives each column the most common .NET type among its non-null values
+        //    (ties go to the type seen first);
+        //  - a column with no non-null value keeps the type the driver reports before the first row is read
+        //    (GetFieldType: the first row's stored type, else the affinity of the declared column type);
+        //  - values of a less common type are converted by the DataColumn, as DataTable.Load did;
+        //  - if that type cannot hold one of those values (e.g. 'a' in a column that is mostly integers, which a mixed
+        //    expression such as CASE ... THEN 'a' ELSE Id END returns), the column becomes String instead of throwing
+        //    "Couldn't store <a> in V Column";
+        //  - a column that mixes BLOB values with values of another type becomes Object, so the bytes are kept
+        //    (a String column would store them as the text "System.Byte[]");
+        //  - rows end Unchanged and duplicate names get the same "Name1", "Name2" suffixes, as with DataTable.Load.
+        // Known difference from DataTable.Load (2.1.0/2.1.1): no constraints are copied from the table, so there is
+        // no PrimaryKey (Load set one only for WITHOUT ROWID tables), AllowDBNull is always true, and Unique and
+        // AutoIncrement are false. These come from GetSchemaTable, and reading them cheaply needs driver internals.
+        // The rows are held twice while the table is built (buffer plus DataTable), so peak memory is a bit higher.
+        private static DataTable ReadSqliteResultSet(SqliteDataReader reader)
+        {
+            int fieldCount = reader.FieldCount;
+            var table = new DataTable();
+            if (fieldCount == 0)
+                return table;
+
+            // Before Read(), Microsoft.Data.Sqlite already holds the first row, so this is the first row's type
+            // or, for NULL or no rows, the declared type's affinity. Used only for columns with no non-null value.
+            var fallbackTypes = new Type[fieldCount];
+            for (int i = 0; i < fieldCount; i++)
+            {
+                try { fallbackTypes[i] = reader.GetFieldType(i); } catch { fallbackTypes[i] = null; }
+            }
+
+            var rows = new List<object[]>();
+            var typeCounts = new Dictionary<Type, int>[fieldCount];
+            var firstSeen = new List<Type>[fieldCount];
+            for (int i = 0; i < fieldCount; i++)
+            {
+                typeCounts[i] = new Dictionary<Type, int>();
+                firstSeen[i] = new List<Type>();
+            }
+
+            while (reader.Read())
+            {
+                var values = new object[fieldCount];
+                reader.GetValues(values);
+                rows.Add(values);
+                for (int i = 0; i < fieldCount; i++)
+                {
+                    if (values[i] == null || values[i] is DBNull)
+                        continue;
+                    var type = values[i].GetType();
+                    if (typeCounts[i].TryGetValue(type, out int count))
+                        typeCounts[i][type] = count + 1;
+                    else
+                    {
+                        typeCounts[i][type] = 1;
+                        firstSeen[i].Add(type);
+                    }
+                }
+            }
+
+            var names = new string[fieldCount];
+            for (int i = 0; i < fieldCount; i++)
+            {
+                try { names[i] = reader.GetName(i); } catch { names[i] = null; }
+            }
+            BuildUniqueColumnNames(names);
+
+            for (int i = 0; i < fieldCount; i++)
+            {
+                Type columnType = null;
+                int best = 0;
+                foreach (var type in firstSeen[i]) // in first-seen order, so ties go to the type seen first
+                {
+                    int count = typeCounts[i][type];
+                    if (count > best)
+                    {
+                        best = count;
+                        columnType = type;
+                    }
+                }
+
+                if (columnType != null && firstSeen[i].Count > 1)
+                    columnType = TypeForMixedColumn(columnType, firstSeen[i], rows, i, table.Locale);
+
+                table.Columns.Add(names[i], columnType ?? fallbackTypes[i] ?? typeof(object));
+            }
+
+            table.BeginLoadData();
+            try
+            {
+                foreach (var values in rows)
+                    table.LoadDataRow(values, true); // true = AcceptChanges, rows end Unchanged like DataTable.Load
+            }
+            finally
+            {
+                table.EndLoadData();
+            }
+
+            return table;
+        }
+
+        // The type of column i, whose non-null values have more than one .NET type (seenTypes); preferred is the most
+        // common of them.
+        //  - Object when any value is a BLOB (byte[]): only Object keeps the bytes. A String column would store them
+        //    as the text "System.Byte[]" (StringStorage converts with ToString()), and other types cannot store them.
+        //  - preferred when a DataColumn of that type stores every value, else String, which stores any value.
+        // "Stores" means the DataColumn conversion does not throw, so a value can still change: a REAL in an Int64
+        // column is converted with IConvertible.ToInt64 and rounded (1.5 loads as 2), as DataTable.Load did in 2.1.1.
+        private static Type TypeForMixedColumn(Type preferred, List<Type> seenTypes, List<object[]> rows, int i, System.Globalization.CultureInfo locale)
+        {
+            if (seenTypes.Contains(typeof(byte[])))
+                return typeof(object);
+            return CanStoreEveryValue(preferred, rows, i, locale) ? preferred : typeof(string);
+        }
+
+        // Whether a DataColumn of the given type can store every value of column i. Only values of another type are
+        // tried, through a scratch DataColumn, so the check uses exactly the conversion LoadDataRow will use. It stops
+        // at the first failure, so at most one conversion exception is thrown per column.
+        private static bool CanStoreEveryValue(Type type, List<object[]> rows, int i, System.Globalization.CultureInfo locale)
+        {
+            var probe = new DataTable { Locale = locale };
+            var column = probe.Columns.Add("v", type);
+            var row = probe.NewRow();
+            foreach (var values in rows)
+            {
+                var value = values[i];
+                if (value == null || value is DBNull || value.GetType() == type)
+                    continue;
+                try { row[column] = value; }
+                catch (ArgumentException) { return false; }
+            }
+            return true;
+        }
+
+        // Makes result column names unique in place, with the same rule DataTable.Load uses
+        // (System.Data.Common.ADP.BuildSchemaTableInfoTableNames, internal to .NET), so SQLite results keep
+        // the column names they had in 2.1.1. Names compare case-insensitively. The first column with a name keeps it;
+        // a later duplicate keeps its own spelling plus the lowest number (from 1) that no other column, original
+        // or renamed, already uses ("a, a, a1" gives "a, a2, a1"). Empty names become "Column1", "Column2", ...
+        private static void BuildUniqueColumnNames(string[] names)
+        {
+            var firstIndex = new Dictionary<string, int>(names.Length, StringComparer.OrdinalIgnoreCase);
+            int start = names.Length; // lowest index that may need a new name
+            for (int i = names.Length - 1; i >= 0; i--) // backwards, so each name ends up mapped to its first column
+            {
+                if (!string.IsNullOrEmpty(names[i]))
+                {
+                    if (firstIndex.TryGetValue(names[i], out int later))
+                        start = Math.Min(start, later);
+                    firstIndex[names[i]] = i;
+                }
+                else
+                {
+                    names[i] = string.Empty;
+                    start = i;
+                }
+            }
+
+            int emptySuffix = 1; // shared by all unnamed columns, as in DataTable.Load
+            for (int i = start; i < names.Length; i++)
+            {
+                if (names[i].Length == 0)
+                    emptySuffix = AddUniqueName(firstIndex, ref names[i], "Column", i, emptySuffix);
+                else if (firstIndex[names[i]] != i)
+                    AddUniqueName(firstIndex, ref names[i], names[i], i, 1);
+            }
+        }
+
+        private static int AddUniqueName(Dictionary<string, int> usedNames, ref string name, string baseName, int index, int suffix)
+        {
+            for (; ; suffix++)
+            {
+                string candidate = baseName + suffix.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                if (usedNames.TryAdd(candidate, index))
+                {
+                    name = candidate;
+                    return suffix;
+                }
+            }
+        }
+
         private DbProviderFactory GetCurrentFactory()
         {
             if (DbProviderFactories.GetFactory(_connection) == null)
@@ -383,6 +648,7 @@ namespace UiPath.Database
             return DbProviderFactories.GetFactory(_connection);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private void ValidateDatabaseTableStructure(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null)
         {
             if (_connection == null)
@@ -399,6 +665,7 @@ namespace UiPath.Database
             ValidateTableStructure(tableName, dataTable, ds);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private string CreateTempTableForUpdate(DataTable dataTable, string tableName, DbCommand cmd)
         {
             var tempTableName = string.Format("a{0}", DateTime.Now.Ticks);
@@ -407,8 +674,9 @@ namespace UiPath.Database
                 tempTableName = string.Format("##{0}", tempTableName);
                 cmd.CommandText = string.Format("SELECT TOP 1 {0} INTO {1} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
             }
-            if (_connection is OracleConnection)
-                cmd.CommandText = string.Format("CREATE GLOBAL TEMPORARY TABLE {1}  ON COMMIT PRESERVE ROWS AS SELECT {0} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
+            var providerSql = GetProvider()?.GetCreateTempTableSql(tempTableName, string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tableName);
+            if (providerSql != null)
+                cmd.CommandText = providerSql;
             cmd.ExecuteNonQuery();
             cmd.CommandText = string.Format("TRUNCATE TABLE {0}", tempTableName);
             cmd.ExecuteNonQuery();
@@ -423,19 +691,17 @@ namespace UiPath.Database
                 return DoBatchUpdate(tableName, dataTable, columnNames, commandTimeout);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int DoBatchUpdate(string tableName, DataTable dataTable, string[] columnNames, TimeSpan? commandTimeout = null)
         {
             if (_connection == null)
                 return -1;
-            var sqlCommand = _connection?.CreateCommand();
-            if (sqlCommand != null)
-            {
-                sqlCommand.Connection = _connection;
-                sqlCommand.Transaction = _transaction;
-                sqlCommand.CommandType = CommandType.Text;
-                ApplyCommandTimeout(sqlCommand, commandTimeout);
-            }
-            var dbSchema = _connection?.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
+            var sqlCommand = _connection.CreateCommand();
+            sqlCommand.Connection = _connection;
+            sqlCommand.Transaction = _transaction;
+            sqlCommand.CommandType = CommandType.Text;
+            ApplyCommandTimeout(sqlCommand, commandTimeout);
+            var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
             string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
             string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
             if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
@@ -463,19 +729,17 @@ namespace UiPath.Database
             return rows;
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int DoBulkUpdate(string tableName, DataTable dataTable, string[] columnNames, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)
         {
             if (_connection == null)
                 return -1;
             var tblName = string.Empty;
-            var sqlCommand = _connection?.CreateCommand();
-            if (sqlCommand != null)
-            {
-                sqlCommand.Connection = _connection;
-                sqlCommand.Transaction = _transaction;
-                sqlCommand.CommandType = CommandType.Text;
-                ApplyCommandTimeout(sqlCommand, commandTimeout);
-            }
+            var sqlCommand = _connection.CreateCommand();
+            sqlCommand.Connection = _connection;
+            sqlCommand.Transaction = _transaction;
+            sqlCommand.CommandType = CommandType.Text;
+            ApplyCommandTimeout(sqlCommand, commandTimeout);
             try
             {
                 tblName = CreateTempTableForUpdate(dataTable, tableName, sqlCommand);
@@ -612,7 +876,7 @@ namespace UiPath.Database
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Direction);
                 if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
                 {
-                    dbParameter.Size = GetParameterSize(dbParameter);
+                    dbParameter.Size = GetParameterSize();
                 }
 
                 dbParameter.Value = param.Value.Value ?? DBNull.Value;
@@ -637,7 +901,7 @@ namespace UiPath.Database
             }
         }
 
-        private int GetParameterSize(DbParameter dbParameter)
+        private int GetParameterSize()
         {
             if ((_connection.GetType() == typeof(OdbcConnection) && (((OdbcConnection)_connection).Driver.StartsWith(DatabaseConstants.OracleOdbcDriverPattern) || ((OdbcConnection)_connection).Driver.StartsWith(DatabaseConstants.DB2OdbcDriverPattern)))
                || _connection.ToString().Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
@@ -713,46 +977,9 @@ namespace UiPath.Database
         {
             if (parameterInfo?.Type is null)
                 return;
-            else if (UpdateDbParamTypeOracle(dbParameter, parameterInfo))
-                return; //in the futuree we might consider update param type for other providers
+
+            //the built-in providers need no type mapping; extra providers (Oracle) map the types themselves
+            GetProvider()?.TryUpdateParameterType(dbParameter, parameterInfo.Type);
         }
-
-        private bool UpdateDbParamTypeOracle(DbParameter dbParameter, ParameterInfo parameterInfo)
-        {
-            if (dbParameter is OracleParameter oracleParameter && _oracleMappings.TryGetValue(parameterInfo.Type, out var oracleType))
-            {
-                oracleParameter.OracleDbType = oracleType;
-                return true;
-            }
-
-            return false;
-        }
-
-
-        /// <summary>
-        /// The mapping of C# Type to OracleDbType or to DbType is not 1-1
-        /// There are a lot of conversions behind the scene that are done
-        /// Most of the conversions work ok with string type
-        /// Here is some reference (it might not be up to date)
-        /// https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-data-type-mappings
-        /// https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/oracle-data-type-mappings
-        /// For now leave only a few conversions
-        /// </summary>
-        private readonly Dictionary<Type, OracleDbType> _oracleMappings = new Dictionary<Type, OracleDbType>()
-        {
-            { typeof(OracleRefCursor), OracleDbType.RefCursor },
-            { typeof(bool), OracleDbType.Boolean },
-            { typeof(int), OracleDbType.Int32 },
-            { typeof(uint), OracleDbType.Int32 },
-            { typeof(short), OracleDbType.Int16 },
-            { typeof(ushort), OracleDbType.Int16 },
-            { typeof(long), OracleDbType.Int64 },
-            { typeof(ulong), OracleDbType.Int64 },
-            { typeof(byte), OracleDbType.Byte },
-            { typeof(sbyte), OracleDbType.Byte },
-            { typeof(float), OracleDbType.Single },
-            { typeof(double), OracleDbType.Double },
-            { typeof(decimal), OracleDbType.Decimal }
-        };
     }
 }

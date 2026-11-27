@@ -11,7 +11,6 @@
     <PackageReference Include="System.Activities" />
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" />
 
     <!--Dependencies override to solve FOSSA issues-->
     <PackageReference Include="System.Formats.Asn1" />

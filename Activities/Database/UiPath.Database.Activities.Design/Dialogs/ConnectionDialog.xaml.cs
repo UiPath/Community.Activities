@@ -23,6 +23,7 @@ namespace UiPath.Database.Activities.Design
             ProviderNames = new List<string>();
 
             DatabaseHelper.RegisterFactories(true);
+            DatabaseHelper.RegisterExtraFactories();
             
             var installedProviders = DbProviderFactories.GetFactoryClasses();
             foreach (DataRow installedProvider in installedProviders.Rows)
@@ -55,7 +56,10 @@ namespace UiPath.Database.Activities.Design
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                // The connection string could not be applied to the activity; the dialog leaves the activity unchanged.
+            }
         }
 
         private void ComboboxControl_SelectionChanged(object sender, RoutedEventArgs e)
