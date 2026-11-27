@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -11,9 +11,10 @@
 		<VersionBuild>$([System.DateTime]::UtcNow.DayOfYear.ToString("F0"))</VersionBuild>
 		<VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("F0"))</VersionRevision>
 		<PackageId>UiPath.Examples.Activities</PackageId>
-		<VersionPrefix Condition="'$(Configuration)' == 'Release'">1.0.0</VersionPrefix>
-		<VersionPrefix Condition="'$(Configuration)' == 'Debug'">1.0.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
+		<VersionPrefix Condition="'$(Configuration)' == 'Release'">2.0.0</VersionPrefix>
+		<VersionPrefix Condition="'$(Configuration)' == 'Debug'">2.0.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
 		<Authors>UiPath</Authors>
+		<Description>IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows.</Description>
 		<PackageTags>UiPathActivities</PackageTags>
 		<Product>UiPath.Examples.Activities</Product>
 		<PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>

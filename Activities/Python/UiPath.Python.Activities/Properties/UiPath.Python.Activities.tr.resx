@@ -157,7 +157,7 @@
     <value>Belirtilen Python yolu geçerli değil: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>Belirtilen Python kitaplık yolu geçerli değil (Python 3.10 için python**.dll / libpython*.so dosya yolu gereklidir): {0}</value>
+    <value>Belirtilen Python kitaplık yolu geçerli değil (python**.dll / libpython*.so dosya yolu gereklidir): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python yöntemi çağrılırken hata oluştu</value>
@@ -294,10 +294,10 @@
     <value>Sonlandırılana ve bir özel durum oluşturulana kadar Python komut dosyasının çalışmasına izin verilecek süre.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Linux için, Python libpython*.so yoludur kitaplık adı dahil olmak üzere, kitaplık. Windows (Sürüm&gt;3.9) için python**.dll yolu kitaplık adı da dahil olmak üzere (genellikle Python Ana Sayfası yolundadır). Windows (Sürüm&lt;=3.9) için boş bırakın.</value>
+    <value>Gerekli. Dosya adı da dahil olmak üzere Python çalışma zamanı kitaplığının tam yolu — Windows&apos;ta python**.dll&apos;dir (örn. python313.dll, genellikle Python giriş klasöründedir), Linux&apos;ta libpython*.so veya macOS&apos;te libpython*.dylib&apos;dir.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Kitaplık yolu (Linux veya sürüm&gt;3.9)</value>
+    <value>Kitaplık yolu</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>Seçilen Python sürümü desteklenmiyor.</value>
@@ -316,7 +316,7 @@
     <value>Etkinliğin yapılandırması için kullanılacak Python yüklemesini seçin</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Python yüklemesi algılanmadı</value>
+    <value>Desteklenen Python yüklemesi (64 bit 3.11 veya üzeri) algılanmadı</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Komut Dosyası Veri Boyutu Sınırı (MB)</value>

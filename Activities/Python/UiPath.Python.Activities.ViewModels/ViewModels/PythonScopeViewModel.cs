@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UiPath.Python;
-using PythonTargetPlatform = UiPath.Python.TargetPlatform;
+using UiPath.Shared.ViewModels.Helpers;
 using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
 namespace UiPath.Activities.Python.ViewModels
@@ -20,13 +20,9 @@ namespace UiPath.Activities.Python.ViewModels
         {
         }
 
-        public DesignProperty<Version> Version { get; set; }
-
         public DesignInArgument<string> Path { get; set; }
 
         public DesignInArgument<string> LibraryPath { get; set; }
-
-        public DesignProperty<TargetPlatform> TargetPlatform { get; set; }
 
         public DesignInArgument<string> WorkingFolder { get; set; }
 
@@ -39,53 +35,49 @@ namespace UiPath.Activities.Python.ViewModels
         [NotMappedProperty]
         public DesignProperty<string> InstalledVersions { get; set; }
 
+        // Older Studio versions ignore NoWrap and would store LocalResource.FromPath("...") in a string argument;
+        // unwrap it and keep relative paths portable ('/').
+        public override async ValueTask<UpdateViewModelResult> UpdateAsync(string propertyName, object value)
+        {
+            if (propertyName == nameof(Path) || propertyName == nameof(LibraryPath) || propertyName == nameof(WorkingFolder))
+            {
+                value = LocalResourcePathNormalizer.Normalize(value);
+            }
+
+            return await base.UpdateAsync(propertyName, value);
+        }
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
 
             var orderIndex = 0;
             InstalledVersions.OrderIndex = orderIndex++;
-            Version.OrderIndex = orderIndex++;
             Path.OrderIndex = orderIndex++;
             LibraryPath.OrderIndex = orderIndex++;
-            TargetPlatform.OrderIndex = orderIndex++;
             WorkingFolder.OrderIndex = orderIndex++;
             OperationTimeout.OrderIndex = orderIndex++;
             ScriptDataSizeLimitMB.OrderIndex = orderIndex++;
             LogTraces.OrderIndex = orderIndex;
 
-            Version.DisplayName = Resources.VersionNameDisplayName;
-            Version.Tooltip = Resources.VersionDescription;
-            Version.Category = Resources.Input;
-            Version.IsRequired = true;
-            Version.DataSource = DataSourceBuilder<Version>
-                .WithId(v => v.ToString())
-                .WithLabel(v => v.ToFriendlyString())
-                .WithSingleItemConverter(
-                    itemToValue: item => item,
-                    valueToItem: value => value)
-                .WithData(VersionExtensions.GetSupportedVersions())
-                .Build();
-
             Path.DisplayName = Resources.PathNameDisplayName;
             Path.Tooltip = Resources.PathDescription;
             Path.Category = Resources.Input;
-            Path.IsRequired = true;
+            // Path is optional: when empty/null the PYTHONHOME environment variable is used at runtime.
             Path.IsPrincipal = true;
+            WidgetSupportHelper.ApplyLocalResourceWidget(Path, Services, selectFolder: true);
 
             LibraryPath.DisplayName = Resources.LibraryPathNameDisplayName;
             LibraryPath.Tooltip = Resources.LibraryPathDescription;
             LibraryPath.Category = Resources.Input;
             LibraryPath.IsRequired = true;
             LibraryPath.IsPrincipal = true;
-
-            TargetPlatform.DisplayName = Resources.TargetPlatformDisplayName;
-            TargetPlatform.Tooltip = Resources.TargetPlatformDescription;
-            TargetPlatform.Category = Resources.Input;
+            WidgetSupportHelper.ApplyLocalResourceWidget(LibraryPath, Services);
 
             WorkingFolder.DisplayName = Resources.WorkingFolder;
             WorkingFolder.Tooltip = Resources.WorkingFolderDescription;
             WorkingFolder.Category = Resources.Input;
+            WidgetSupportHelper.ApplyLocalResourceWidget(WorkingFolder, Services, selectFolder: true);
 
             OperationTimeout.DisplayName = Resources.OperationTimeout;
             OperationTimeout.Tooltip = Resources.OperationTimeoutDescription;
@@ -115,22 +107,19 @@ namespace UiPath.Activities.Python.ViewModels
             {
                 InstalledVersions.DataSource = DataSourceBuilder<PythonInstallation>
                 .WithId(v => v.Key)
-                .WithLabel(v => v.TargetPlatform is { } platform
-                    ? $"{v.Version} ({platform}) - {v.InstallPath}"
-                    : $"{v.Version} - {v.InstallPath}")
+                .WithLabel(v => $"{v.Version} - {v.InstallPath}")
                 .WithSingleItemConverter(
                     itemToValue: item => item.Key,
                     valueToItem: value => GetInstalledPythonVersions().FirstOrDefault(v => v.Key == value))
                 .WithData(GetInstalledPythonVersions().ToList())
                 .Build();
 
-                // Pre-select the dropdown entry whose InstallPath/LibraryPath/TargetPlatform match
-                // the values already stored in the workflow, so reopening a configured scope
-                // shows the correct installation without requiring the user to re-pick it.
+                // Pre-select the dropdown entry whose InstallPath/LibraryPath match the values
+                // already stored in the workflow, so reopening a configured scope shows the correct
+                // installation without requiring the user to re-pick it.
                 var matchingInstallation = GetInstalledPythonVersions().FirstOrDefault(v =>
                     string.Equals(v.InstallPath, GetLiteralValue(Path.Value), System.StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(v.LibraryPath, GetLiteralValue(LibraryPath.Value), System.StringComparison.OrdinalIgnoreCase) &&
-                    (v.TargetPlatform ?? PythonTargetPlatform.x64) == TargetPlatform.Value);
+                    string.Equals(v.LibraryPath, GetLiteralValue(LibraryPath.Value), System.StringComparison.OrdinalIgnoreCase));
 
                 if (matchingInstallation is not null)
                     InstalledVersions.Value = matchingInstallation.Key;
@@ -161,13 +150,13 @@ namespace UiPath.Activities.Python.ViewModels
 
             Path.Value = installation.InstallPath;
             LibraryPath.Value = installation.LibraryPath;
-            TargetPlatform.Value = installation.TargetPlatform ?? PythonTargetPlatform.x64;
-            Version.Value = UiPath.Python.Version.Auto; // Let the engine decide the exact version based on the library, but set to Auto to avoid mismatches
         }
 
-        private sealed record PythonInstallation(string Version, string InstallPath, string? LibraryPath, PythonTargetPlatform? TargetPlatform)
+        internal sealed record PythonInstallation(string Version, string InstallPath, string LibraryPath)
         {
-            public string Key => $"{Version}_{TargetPlatform}";
+            // Identity must include the install path: the same version can be installed in more
+            // than one location, and keying on version alone would collapse them to a single entry.
+            public string Key => $"{Version}|{InstallPath}";
         }
 
         private static readonly Regex _launcherLineRegex = new Regex(
@@ -190,9 +179,9 @@ namespace UiPath.Activities.Python.ViewModels
                     CollectFromPythonLauncher(versions);
 
                 return versions
-                    .DistinctBy(v => (v.Version, v.TargetPlatform))
+                    .DistinctBy(v => v.Key)
                     .OrderByDescending(v => System.Version.TryParse(v.Version, out var parsed) ? parsed : new System.Version(0, 0))
-                    .ThenBy(v => v.TargetPlatform)
+                    .ThenBy(v => v.InstallPath)
                     .ToList();
             }
             catch
@@ -224,7 +213,7 @@ namespace UiPath.Activities.Python.ViewModels
 
                 if (!Task.WhenAll(stdoutTask, stderrTask).Wait(System.TimeSpan.FromSeconds(3)))
                 {
-                    try { process.Kill(entireProcessTree: true); } catch { }
+                    try { process.Kill(entireProcessTree: true); } catch { /* the process may have just exited; nothing to clean up */ }
                     return;
                 }
 
@@ -236,10 +225,10 @@ namespace UiPath.Activities.Python.ViewModels
                         if (TryParseLauncherLine(line) is { } installation)
                             versions.Add(installation);
                     }
-                    catch { }
+                    catch { /* skip a launcher line that cannot be parsed */ }
                 }
             }
-            catch { }
+            catch { /* design-time discovery is best effort: no launcher or a failure just means fewer suggestions */ }
         }
 
         /// <summary>Returns the literal string wrapped by a <see cref="System.Activities.InArgument{T}"/>,
@@ -247,7 +236,7 @@ namespace UiPath.Activities.Python.ViewModels
         private static string GetLiteralValue(System.Activities.InArgument<string> arg) =>
             (arg?.Expression as System.Activities.Expressions.Literal<string>)?.Value;
 
-        private static PythonInstallation? TryParseLauncherLine(string line)
+        internal static PythonInstallation TryParseLauncherLine(string line)
         {
             // Format (old): -3.11-64 *       C:\Python311\python.exe
             // Format (new): -V:3.11 *        C:\Program Files\Python311\python.exe
@@ -259,10 +248,12 @@ namespace UiPath.Activities.Python.ViewModels
                 int.TryParse(match.Groups["minor"].Value, out var minor) &&
                 TryBuildVersionLabel(major, minor, out var label))
             {
-                var bitsValue = match.Groups["bits"].Value;
-                PythonTargetPlatform? platform = bitsValue == "32" ? PythonTargetPlatform.x86 : bitsValue == "64" ? PythonTargetPlatform.x64 : null;
+                // Skip 32-bit installations — only 64-bit is supported.
+                if (match.Groups["bits"].Value == "32")
+                    return null;
+
                 var installPath = System.IO.Path.GetDirectoryName(match.Groups["path"].Value.Trim());
-                return new PythonInstallation(label, installPath, System.IO.Path.Combine(installPath, $"python{major}{minor}.dll"), platform);
+                return new PythonInstallation(label, installPath, System.IO.Path.Combine(installPath, $"python{major}{minor}.dll"));
             }
 
             return null;
@@ -271,7 +262,8 @@ namespace UiPath.Activities.Python.ViewModels
         private static bool TryBuildVersionLabel(int major, int minor, out string label)
         {
             label = null;
-            if (major != 3)
+            // Only offer versions the runtime accepts, so the designer and EngineProvider.ValidatePythonLibrary agree.
+            if (major != 3 || !VersionExtensions.IsRuntimeVersionSupported(major, minor))
                 return false;
 
             label = $"{major}.{minor}";

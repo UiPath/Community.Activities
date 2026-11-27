@@ -20,8 +20,12 @@ namespace UiPath.Python.Activities.API.Models
 
         /// <summary>
         /// The Python version to use.
-        /// Default is <see cref="Version.Auto"/>.
         /// </summary>
+        /// <remarks>
+        /// Obsolete: the Python version is detected automatically from the installation at
+        /// <see cref="Path"/>/<see cref="LibraryPath"/>. Setting this property has no effect.
+        /// </remarks>
+        [Obsolete("Version is no longer used. The Python version is detected automatically from the installation at Path/LibraryPath.")]
         public Version Version { get; set; } = Version.Auto;
 
         /// <summary>
@@ -37,10 +41,12 @@ namespace UiPath.Python.Activities.API.Models
 
         /// <summary>
         /// The target CPU architecture for the Python engine.
-        /// Use <see cref="TargetPlatform.x86"/> only when your Python installation is 32-bit
-        /// (e.g., legacy native-DLL bindings that require a 32-bit host).
-        /// Default is <see cref="TargetPlatform.x64"/>.
         /// </summary>
+        /// <remarks>
+        /// Obsolete: only 64-bit execution is supported with direct pythonnet integration.
+        /// Setting this property has no effect.
+        /// </remarks>
+        [Obsolete("TargetPlatform is no longer used. Only 64-bit execution is supported with direct pythonnet integration.")]
         public TargetPlatform Target { get; set; } = TargetPlatform.x64;
 
         /// <summary>

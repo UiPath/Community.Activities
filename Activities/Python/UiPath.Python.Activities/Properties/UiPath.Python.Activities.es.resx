@@ -157,7 +157,7 @@
     <value>La ruta de Python especificada no es válida: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>La ruta de la biblioteca de Python especificada no es válida (la ruta de archivo a python**.dll / libpython*.so es necesaria para Python 3.10): {0}</value>
+    <value>La ruta de la biblioteca de Python especificada no es válida (una ruta de archivo a python**.dll / libpython*.so es necesaria): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Error al invocar el método de Python</value>
@@ -294,10 +294,10 @@
     <value>La cantidad de tiempo que se permite que se ejecute un script de Python hasta que finaliza y se genera una excepción.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Para Linux, es la ruta a la biblioteca Python libpython*.so, incluido el nombre de la biblioteca. Para Windows (versión &gt;3.9), la ruta a python**.dll incluido el nombre de la biblioteca (generalmente se encuentra en la ruta de inicio de Python). Para Windows (versión &lt;= 3.9), se debe dejar vacío.</value>
+    <value>Obligatorio. Ruta completa a la biblioteca de runtime de Python, incluido el nombre del archivo: python**.dll en Windows (p. ej. python313.dll, normalmente en la carpeta de inicio de Python), libpython*.so en Linux o libpython*.dylib en macOS.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Ruta de la biblioteca (Linux o versión &gt;3.9)</value>
+    <value>Ruta de biblioteca</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>La versión de Python seleccionada no es compatible.</value>
@@ -316,7 +316,7 @@
     <value>Seleccione la instalación de Python que se utilizará para la configuración de la actividad</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>No se han detectado instalaciones de Python</value>
+    <value>No se han detectado instalaciones de Python compatibles (de 64 bits, versión 3.11 o posterior)</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Límite de tamaño de los datos del script (MB)</value>

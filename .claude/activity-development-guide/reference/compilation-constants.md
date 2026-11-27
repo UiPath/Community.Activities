@@ -16,7 +16,7 @@
 
 | Symbol | Defined When | Purpose |
 |---|---|---|
-| `NETPORTABLE_UIPATH` | Targeting net5.0 or net6.0 (but **not** net6.0-windows) | Guard Windows-specific code so it compiles on portable/cross-platform targets |
+| `NETPORTABLE_UIPATH` | Targeting net5.0 or newer, e.g. net8.0 (but **not** a `*-windows` target) | Guard Windows-specific code so it compiles on portable/cross-platform targets |
 | `INTEGRATION_SERVICE` | Integration Service connection client is available | Enable Integration Service support (connection widgets, token acquisition) |
 | `GOVERNANCE_SERVICE` | Governance infrastructure is available | Enable runtime governance checks and policy enforcement |
 

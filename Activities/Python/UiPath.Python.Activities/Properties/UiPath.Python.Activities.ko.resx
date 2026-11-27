@@ -157,7 +157,7 @@
     <value>지정된 Python 경로가 잘못됨: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>지정된 Python 라이브러리 경로가 유효하지 않습니다(Python 3.10에는 python**.dll / libpython*.so 파일 경로가 필요함): {0}</value>
+    <value>지정된 Python 라이브러리 경로가 유효하지 않습니다(python**.dll / libpython*.so 파일 경로가 필요함): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python 메서드 호출 중 오류</value>
@@ -291,13 +291,13 @@
     <value>시간 제한</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간입니다.</value>
+    <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간(초)입니다.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Linux의 경우 Python libpython*.so 라이브러리(라이브러리 이름 포함). Windows(버전&gt;3.9)의 경우 python**.dll 라이브러리 이름 포함(일반적으로 Python 홈 경로에 있음). Windows(버전&lt;=3.9)의 경우 비워 둡니다.</value>
+    <value>필수입니다. 파일 이름을 포함한 Python 런타임 라이브러리의 전체 경로 — Windows의 경우 python**.dll(예: python313.dll, 일반적으로 Python 홈 폴더에 위치), Linux의 경우 libpython*.so, macOS의 경우 libpython*.dylib입니다.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>라이브러리 경로(Linux 또는 버전&gt; 3.9)</value>
+    <value>라이브러리 경로</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>선택한 Python 버전은 지원되지 않습니다.</value>
@@ -316,7 +316,7 @@
     <value>액티비티 구성에 사용할 Python 설치 버전을 선택합니다</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Python 설치가 감지되지 않았습니다</value>
+    <value>지원되는 Python 설치(64비트 3.11 이상)가 감지되지 않았습니다</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>스크립트 데이터 크기 제한(MB)</value>

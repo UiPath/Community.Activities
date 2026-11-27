@@ -4,6 +4,6 @@
 
     <ItemGroup>
         <!-- Upgrade python specific dependencies here -->
+        <PackageReference Update="pythonnet" Version="3.2.1" />
     </ItemGroup>
-    
 </Project>
