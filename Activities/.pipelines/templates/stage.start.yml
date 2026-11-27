@@ -33,7 +33,6 @@ parameters:
   additionalSonarTasks: []
   sonarDependsOn: []
   msBuildPack: false
-  sdkBuild: false
   requiresLfs: false
   hasQaPackages: true
 
@@ -59,7 +58,6 @@ stages:
       sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
       sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
       sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
-      sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}
       hasQaPackages: ${{ parameters.hasQaPackages }}
       msBuildPack: ${{ parameters.msBuildPack }}

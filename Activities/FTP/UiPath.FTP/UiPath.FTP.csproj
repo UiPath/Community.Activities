@@ -8,12 +8,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP" />
-    <PackageReference Include="SSH.NET" />
+    <PackageReference Include="UiPath.SSH.NET" />
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
 
   <ItemGroup>
     <InternalsVisibleTo Include="UiPath.FTP.Tests" />
+    <InternalsVisibleTo Include="UiPath.FTP.Extended.Tests" />
     <EmbeddedResource Update="Properties\UiPath.FTP.*.resx">
       <DependentUpon>UiPath.FTP.resx</DependentUpon>
     </EmbeddedResource>

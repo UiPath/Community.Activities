@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>輸入內容使用 GnuPG 的 AEAD/LibrePGP 格式（OCB），但不受支援。請要求寄件者使用 RFC 4880 相容模式（不使用 AEAD）加密。</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>收件者公開金鑰已過期、已撤銷或沒有具有加密功能的金鑰，因此無法用於加密。請提供收件者目前有效的公開金鑰。</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>私密金鑰已過期、已撤銷或沒有具有簽署功能的金鑰，因此無法用於簽署。請提供有效的私密金鑰。</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>輸入不是經 PGP 加密的資料，因此無法解密。請提供加密訊息；如果輸入僅經過簽署，請關閉解密功能。</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>已加密資料未通過完整性檢查；該資料已遭修改或損毀。</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>簽署的檔案 (二進位)</value>
   </data>

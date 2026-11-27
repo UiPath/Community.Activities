@@ -157,7 +157,7 @@
     <value>Der angegebene Python-Pfad ist ungültig: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>Der angegebene Python-Bibliothekspfad ist ungültig (für Python 3.10 ist ein Dateipfad zu python**.dll / libpython*.so erforderlich): {0}</value>
+    <value>Der angegebene Python-Bibliothekspfad ist ungültig (ein Dateipfad zu python**.dll / libpython*.so ist erforderlich): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Fehler beim Aufrufen der Python-Methode</value>
@@ -316,7 +316,7 @@
     <value>Python-Installation auswählen, die für die Konfiguration der Aktivität verwendet werden soll</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Es wurden keine Python-Installationen erkannt</value>
+    <value>Es wurden keine unterstützten Python-Installationen (64-Bit 3.11 oder höher) erkannt</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Größenbegrenzung für Skriptdaten (MB)</value>

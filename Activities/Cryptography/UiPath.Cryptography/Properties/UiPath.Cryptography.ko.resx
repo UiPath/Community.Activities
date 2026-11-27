@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>입력은 GnuPG의 AEAD/LibrePGP 형식(OCB)을 사용하며, 이는 지원되지 않습니다. 발신자에게 RFC 4880 호환 방식(AEAD 없음)으로 암호화하도록 요청하십시오.</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>수신자 공개 키가 만료되었거나 해지되었거나 암호화 가능 키가 없으므로 암호화에 사용할 수 없습니다. 수신자의 현재 공개 키를 제공하십시오.</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>비공개 키는 만료되었거나, 해지되었거나, 서명 가능 키가 없으므로 서명에 사용할 수 없습니다. 현재 유효한 비공개 키를 제공하십시오.</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>입력이 PGP로 암호화된 데이터가 아니므로 복호화할 수 없습니다. 암호화된 메시지를 제공하거나 입력이 서명만 된 경우 복호화를 끄십시오.</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>암호화된 데이터가 무결성 검사에 실패했습니다. 수정되었거나 손상되었습니다.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>서명된 파일(바이너리)</value>
   </data>

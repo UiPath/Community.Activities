@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>Girdi, GnuPG&apos;nin desteklenmeyen AEAD/LibrePGP biçimini (OCB) kullanıyor. Gönderenden RFC 4880 ile uyumlu şekilde (AEAD olmadan) şifrelemesini isteyin.</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>Alıcının ortak anahtarı, süresi dolduğu, iptal edildiği veya şifreleme yapabilen bir anahtar içermediği için şifrelemede kullanılamaz. Alıcı için güncel bir ortak anahtar sağlayın.</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>Özel anahtarın süresi dolduğu, iptal edildiği veya imzalama özelliğine sahip bir anahtar içermediği için imzalamada kullanılamaz. Güncel bir özel anahtar sağlayın.</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>Giriş, PGP ile şifrelenmiş veri olmadığından şifresi çözülemez. Şifrelenmiş iletiyi sağlayın veya giriş yalnızca imzalanmışsa şifre çözmeyi kapatın.</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>Şifrelenmiş veri bütünlük denetiminden geçemedi; değiştirilmiş veya bozulmuştur.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>İmzalanan Dosya (İkili)</value>
   </data>

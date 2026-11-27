@@ -22,7 +22,7 @@ namespace UiPath.Database.Activities
         /// <summary>Resolves activity Parameters into a typed dictionary using the current context.</summary>
         public static Dictionary<string, ParameterInfo> BuildParameters(Dictionary<string, Argument> activityParameters, AsyncCodeActivityContext context)
         {
-            if (activityParameters == null) return null;
+            if (activityParameters == null) return new Dictionary<string, ParameterInfo>();
             var parameters = new Dictionary<string, ParameterInfo>();
             foreach (var param in activityParameters)
             {
@@ -56,7 +56,7 @@ namespace UiPath.Database.Activities
         {
             if (existingConnection == null && connString == null && connSecureString == null && provName == null)
             {
-                throw new ArgumentNullException(Resources.ValidationError_ConnectionNotValid);
+                throw new ArgumentNullException(nameof(existingConnection), Resources.ValidationError_ConnectionNotValid);
             }
             if (existingConnection != null && (provName != null || connString != null || connSecureString != null))
             {
@@ -66,7 +66,7 @@ namespace UiPath.Database.Activities
             {
                 if (provName == null)
                 {
-                    throw new ArgumentNullException(Resources.ValidationError_ProviderNull);
+                    throw new ArgumentNullException(nameof(provName), Resources.ValidationError_ProviderNull);
                 }
                 if (connString != null && connSecureString != null)
                 {
@@ -74,7 +74,7 @@ namespace UiPath.Database.Activities
                 }
                 if (connString == null && connSecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+                    throw new ArgumentNullException(nameof(connString), Resources.ValidationError_ConnectionStringMustNotBeNull);
                 }
             }
         }

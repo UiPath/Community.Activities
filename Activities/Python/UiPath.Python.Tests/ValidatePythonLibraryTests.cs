@@ -60,6 +60,27 @@ namespace UiPath.Python.Tests
             }
         }
 
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void Python310LibraryName_ThrowsNotSupported()
+        {
+            // python310.dll is the file name users with a 3.10 install actually pick.
+            var dir = NewTempDir();
+            try
+            {
+                var python310 = Path.Combine(dir, "python310.dll");
+                File.Copy(EmbeddedLibraryPath, python310);
+
+                var ex = Assert.Throws<NotSupportedException>(
+                    () => EngineProvider.ValidatePythonLibrary(python310));
+                Assert.Contains("3.10", ex.Message);
+            }
+            finally
+            {
+                TryDeleteDir(dir);
+            }
+        }
+
         [SkippableFact]
         [Trait(TestCategories.Category, Category)]
         public void ThirtyTwoBitLibrary_ThrowsPlatformNotSupported()

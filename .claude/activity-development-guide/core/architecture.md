@@ -137,7 +137,7 @@ Activities run in two designer environments with different capabilities:
 
 | Aspect | Studio Desktop | Studio Web |
 |--------|---------------|------------|
-| Platform | Windows (`net6.0-windows`) | Browser (`net6.0`, cross-platform) |
+| Platform | Windows (`net8.0-windows`) | Browser (`net8.0`, cross-platform) |
 | Metadata file | `ActivitiesMetadataWindows.json` + `ActivitiesMetadataPortable.json` | `ActivitiesMetadataPortable.json` only |
 | Feature detection | `workflowDesignApi.HasFeature(DesignFeatureKeys.StudioDesignSettingsV3)` | Returns `false` for Desktop-only features |
 | Helper | `workflowDesignApi.RunningInStudioDesktop()` | Returns `false` |

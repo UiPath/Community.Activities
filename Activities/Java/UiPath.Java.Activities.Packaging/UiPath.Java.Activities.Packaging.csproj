@@ -12,7 +12,7 @@
 		<PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
 		<PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-java-activities-pack</PackageLicenseUrl>
 		<PackageTags>UiPathActivities</PackageTags>
-		<Description>UiPath Java Activities Pack</Description>
+		<Description>IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows. UiPath Java Activities Pack</Description>
 		<Authors>UiPath</Authors>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>

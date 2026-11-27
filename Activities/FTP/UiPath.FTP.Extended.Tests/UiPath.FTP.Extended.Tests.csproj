@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <AssemblyTitle>UiPath.FTP.Extended.Tests</AssemblyTitle>
+    <Product>UiPath.FTP.Extended.Tests</Product>
+    <OutputPath>..\..\OutputTests\FTP\Extended\</OutputPath>
+    <IsTestProject>true</IsTestProject>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.FTP.Extended\UiPath.FTP.Extended.csproj" />
+    <ProjectReference Include="..\UiPath.FTP\UiPath.FTP.csproj" />
+    <ProjectReference Include="..\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj" />
+  </ItemGroup>
+</Project>

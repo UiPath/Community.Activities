@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>Die Eingabe verwendet das AEAD/LibrePGP-Format (OCB) von GnuPG, das nicht unterstützt wird. Bitten Sie den Absender, mit RFC 4880-Kompatibilität (kein AEAD) zu verschlüsseln.</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>Der öffentliche Schlüssel des Empfängers kann nicht für die Verschlüsselung verwendet werden, da er abgelaufen ist, widerrufen wurde oder keinen verschlüsselten Schlüssel hat. Geben Sie einen aktuellen öffentlichen Schlüssel für den Empfänger an.</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>Der private Schlüssel kann nicht zum Signieren verwendet werden, da er abgelaufen ist, widerrufen wurde oder keinen signierfähigen Schlüssel hat. Geben Sie einen aktuellen privaten Schlüssel an.</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>Die Eingabe besteht nicht aus PGP-verschlüsselten Daten, daher kann sie nicht entschlüsselt werden. Geben Sie die verschlüsselte Nachricht an, oder deaktivieren Sie die Entschlüsselung, wenn die Eingabe nur signiert ist.</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>Die verschlüsselten Daten haben die Integritätsprüfung nicht bestanden; sie wurden geändert oder sind beschädigt.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Signierte Datei (Binär)</value>
   </data>

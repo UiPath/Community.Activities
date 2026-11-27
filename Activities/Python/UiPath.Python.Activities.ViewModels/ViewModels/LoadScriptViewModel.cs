@@ -2,7 +2,9 @@
 using System.Activities.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using UiPath.Python;
+using UiPath.Shared.ViewModels.Helpers;
 using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
 namespace UiPath.Activities.Python.ViewModels
@@ -20,6 +22,18 @@ namespace UiPath.Activities.Python.ViewModels
 
         public DesignOutArgument<PythonObject> Result { get; set; }
 
+        // Older Studio versions ignore NoWrap and would store LocalResource.FromPath("...") in a string argument;
+        // unwrap it and keep relative paths portable ('/').
+        public override async ValueTask<UpdateViewModelResult> UpdateAsync(string propertyName, object value)
+        {
+            if (propertyName == nameof(ScriptFile))
+            {
+                value = LocalResourcePathNormalizer.Normalize(value);
+            }
+
+            return await base.UpdateAsync(propertyName, value);
+        }
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -33,7 +47,7 @@ namespace UiPath.Activities.Python.ViewModels
             ScriptFile.Tooltip = Resources.ScriptFileDescription;
             ScriptFile.Category = Resources.Input;
             ScriptFile.IsPrincipal = true;
-            ScriptFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services);
+            WidgetSupportHelper.ApplyLocalResourceWidget(ScriptFile, Services);
 
             Code.DisplayName = Resources.CodeNameDisplayName;
             Code.Tooltip = Resources.CodeDescription;

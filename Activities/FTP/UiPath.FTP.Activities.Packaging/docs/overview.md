@@ -1,39 +1,33 @@
-# UiPath FTP Activities
+# UiPath FTP Activities (extended)
 
-`UiPath.FTP.Activities`
+`UiPath.FTP.Activities` (extended package). It depends on the base package `UiPath.FTP.Core.Activities`, which contains all the activities and the coded workflow API.
 
-## Activities
+## What this package is
 
-| Activity | Description |
-|----------|-------------|
-| [Delete File or Folder](activities/Delete.md) | Removes a file or folder from an FTP server. This activity only works if it is placed inside a Use FTP Connection activity. |
-| [Check If Folder Exists](activities/DirectoryExists.md) | Checks whether a folder exists on an FTP server. This activity only works if it is placed inside a Use FTP Connection activity. |
-| [Download Files](activities/DownloadFiles.md) | Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a Use FTP Connection activity. |
-| [List Files and Folders](activities/EnumerateObjects.md) | Generates a collection of the files and folders found on the FTP server. Subfolders can also be included by turning on Include subfolders. This activity only works if it is placed inside a Use FTP Connection activity. |
-| [Check If File Exists](activities/FileExists.md) | Checks whether a file exists in the specified FTP folder. This activity only works if it is placed inside a Use FTP Connection activity. |
-| [Move File or Folder](activities/MoveItem.md) | Moves an item on an FTP server to a different remote path. This activity only works if it is placed inside a Use FTP Connection activity. |
-| [Upload Files](activities/UploadFiles.md) | Uploads files to an FTP server. This activity only works if it is placed inside a Use FTP Connection activity. |
-| [Use FTP Connection](activities/WithFtpSession.md) | Connects to FTP server and provides a scope for other FTP activities. |
+- The activities, the coded workflow API, their properties and XAML are those of `UiPath.FTP.Core.Activities`. They are documented in this folder as well: see the [activity documents](activities/) and [coded-api.md](coded-api.md). Nothing in a workflow changes when you use this package instead of the base one.
+- This package adds the SFTP algorithms that the operating system cryptography module does not provide. They are implemented with BouncyCastle (`UiPath.FTP.Activities.Extended.dll`) and are picked up automatically for every SFTP connection; there is no setting.
+- It keeps the id `UiPath.FTP.Activities`, so projects that already reference it keep working as before after an upgrade.
 
-## XAML Namespace
+## Added SFTP algorithms
 
-All FTP activities and types live under a single XAML namespace. Declare it on the root `<Activity>` and use the `ftp:` prefix for every FTP type:
+| Area | Added |
+|------|-------|
+| Key exchange | `curve25519-sha256` (and `@libssh.org`), `diffie-hellman-group-exchange-sha256`, `diffie-hellman-group16-sha512`, `diffie-hellman-group14-sha256`, `diffie-hellman-group-exchange-sha1`, `diffie-hellman-group14-sha1`, `diffie-hellman-group1-sha1` |
+| Host and client keys | `ssh-ed25519` (host and client key), `ssh-dss` (server host key only) |
+| Ciphers | `blowfish-cbc`, `twofish-cbc`, `twofish128/192/256-cbc`, `cast128-cbc`, `arcfour`, `arcfour128`, `arcfour256` |
+| MACs | `hmac-md5`, `hmac-md5-96`, `hmac-sha1-96`, `hmac-sha2-256-96`, `hmac-sha2-512-96`, `hmac-md5-etm@openssh.com`, `hmac-md5-96-etm@openssh.com`, `hmac-sha1-96-etm@openssh.com` |
+| Private key files | OpenSSH-format keys encrypted with bcrypt, Ed25519 keys |
 
-```xml
-xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"
-```
+The operating system algorithms of the base package stay first in the negotiation; these are added after them, legacy last.
 
-This one URI maps the whole package — the activities (`UiPath.FTP.Activities`), the session/result types (`UiPath.FTP`: `IFtpSession`, `FtpObjectInfo`, `FtpObjectType`, `FtpFilterObjectType`), and the design types. So `ftp:WithFtpSession`, `ftp:IFtpSession`, `ftp:FtpObjectInfo`, etc. all use the same prefix.
+## Not supported (also not in this package)
 
-> **Do NOT use the `clr-namespace:` form** (e.g. `clr-namespace:UiPath.FTP.Activities;assembly=UiPath.FTP.Activities`). The package registers its types under the schema URI above via `[XmlnsDefinition]`. The `clr-namespace` form can pass `uipath validate` but then fail the project build with `Cannot create unknown type '{clr-namespace:...}WithFtpSession'`. Always declare the schema URI.
+Compared with `UiPath.FTP.Activities` 3.1.3 the following are no longer available, because the underlying SSH library no longer provides them:
 
-> **`validate` is not enough — run `build`.** A wrong namespace, a wrong scope-body shape, or a wrong property type frequently passes per-file `validate` and only fails at project `build` (or runtime). Treat a green `validate` + failing `build` whose error names a `{clr-namespace:...}` type as a namespace-declaration problem.
+- **DSA client keys** (private key files of type `ssh-dss`, PEM or OpenSSH format). A project that authenticates with a DSA key must switch to an RSA, ECDSA or Ed25519 key. DSA host keys of servers (`ssh-dss`) are still verified.
+- PEM private keys encrypted with single DES (`DES-CBC`; the error is `Private key cipher "DES-CBC" is not supported`). Re-encrypt the key with AES. OpenSSH cannot read DES keys, use OpenSSL (3.x needs its legacy provider to read them): `openssl rsa -provider legacy -provider default -in old.pem -aes256 -traditional -out new.pem`.
+- The packages target `net8.0` and `net8.0-windows` only (3.1.3 also targeted `net6.0`).
 
-## Types
+## Not limited to operating system cryptography
 
-| Type | XAML | Notes |
-|------|------|-------|
-| `IFtpSession` | `ftp:IFtpSession` | Delegate argument exposed by the `WithFtpSession` scope body (`ActivityAction<IFtpSession>`, arg name `FtpSession`). |
-| `FtpObjectInfo` | `ftp:FtpObjectInfo` | Returned by List Files and Folders. Members: `FullName`, `Name`, `Size`, `Created`, `Modified`, `Type` (`FtpObjectType`), `OwnerPermissions`, `GroupPermissions`, `OthersPermissions` (`FtpPermissions`). |
-| `FtpObjectType` | `ftp:FtpObjectType` | Enum: `Directory`, `File`, `Link`, `Other`. **On SFTP, `Link` is never produced** — symbolic links are reported as `File`. FTP/FTPS report `Link` correctly. See [List Files and Folders](activities/EnumerateObjects.md). |
-| `FtpFilterObjectType` | `ftp:FtpFilterObjectType` | `[Flags]` enum used by List Files and Folders `Filter` — see that activity's doc for values and semantics. |
+A connection that negotiates one of the added algorithms uses BouncyCastle, not the operating system module. If only operating system cryptography is allowed, use `UiPath.FTP.Core.Activities` alone; this extended package is not suitable for that environment.

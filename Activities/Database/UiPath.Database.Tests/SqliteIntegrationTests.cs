@@ -381,6 +381,39 @@ namespace UiPath.Database.Tests
             Assert.Throws<ArgumentException>(() => WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30)));
         }
 
+        [Fact, TestPriority(15)]
+        public void ExecuteNonQuery_NullParameters_RunsWithoutNullReference()
+        {
+            var activity = new ExecuteNonQuery
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                Sql = new InArgument<string>("SELECT 1"),
+                Parameters = null,
+                AffectedRecords = new OutArgument<int>()
+            };
+
+            var outputs = WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30));
+
+            Assert.True(outputs.ContainsKey(nameof(ExecuteNonQuery.AffectedRecords)));
+        }
+
+        [Fact, TestPriority(16)]
+        public void ExecuteQuery_NullParameters_ReturnsRows()
+        {
+            var activity = new ExecuteQuery
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                Sql = new InArgument<string>("SELECT 1 AS One"),
+                Parameters = null,
+                DataTable = new OutArgument<DataTable>()
+            };
+
+            var outputs = WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30));
+
+            var table = (DataTable)outputs[nameof(ExecuteQuery.DataTable)];
+            Assert.Equal(1, table.Rows.Count);
+        }
+
         private static string NewTempDbPath()
             => Path.Combine(Path.GetTempPath(), $"uipath_sqlite_txn_{Guid.NewGuid():N}.db");
 

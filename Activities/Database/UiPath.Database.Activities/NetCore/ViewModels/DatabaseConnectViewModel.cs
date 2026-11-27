@@ -1,11 +1,14 @@
-﻿using System.Activities;
+﻿using System;
+using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Linq;
 using System.Security;
 using UiPath.Database.Activities.NetCore.ViewModels;
 using UiPath.Shared.ViewModels.Helpers;
 using UiPath.Database.Activities.Properties;
 using UiPath.Database;
+using UiPath.Database.Extensibility;
 
 namespace UiPath.Database.Activities
 {
@@ -24,7 +27,12 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
     {
         private const string DefaultProviderNameValue = DatabaseConstants.SqlServerProvider;
 
-        private static string[] ProviderNameDataSourceItems { get => new string[] { DatabaseConstants.SqlServerProvider, DatabaseConstants.OleDbProvider, DatabaseConstants.OdbcProvider, DatabaseConstants.OracleProvider }; }
+        // The built-in providers followed by the ones installed packages bring (Oracle comes with the extended package).
+        private static string[] GetProviderNameDataSourceItems() =>
+            new[] { DatabaseConstants.SqlServerProvider, DatabaseConstants.OleDbProvider, DatabaseConstants.OdbcProvider }
+                .Concat(DatabaseProviders.GetAll().Select(provider => provider.ProviderName))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
 
         /// <summary>
         /// Basic constructor
@@ -77,7 +85,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             ProviderName.DataSource = DataSourceBuilder<string>
                                             .WithId(p => p)
                                             .WithLabel(d => d)
-                                            .WithData(ProviderNameDataSourceItems)
+                                            .WithData(GetProviderNameDataSourceItems())
                                             .Build();
             ProviderName.Value ??= new InArgument<string>(DefaultProviderNameValue);
 
